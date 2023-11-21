@@ -1,3 +1,6 @@
+# LAI YING QI 286482
+# A231_SQIT3073 ASSIGNMENT 1
+
 import os
 os.system('cls')
 
