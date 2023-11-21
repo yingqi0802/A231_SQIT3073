@@ -3,7 +3,9 @@ os.system('cls')
 
 import sys
 
+#Store Items
 loan_calculations = []
+debt_service_ratio_threshold = 70
 
 #Option 1- Calculate a new loan
 def monthly_instalment_calculator(loan_amount, annual_interest_rate,loan_terms):
@@ -79,13 +81,46 @@ def previous_loan_calculations_display():
         for key, value in loan.items():
             print(f"{key}: {value}")
 
+#Option 3 - Delete previous loan calculation
+def previous_loan_calculations_delete():
+    global loan_calculations
+    if not loan_calculations:
+        print("\nNo previous loan calculations to delete.")
+    else:
+        delete = input("Are you sure to delete the previous loan calculations?\n(yes= 1, no=2): ")
+        if delete == "1":
+            loan_calculations_tuple = tuple(loan_calculations)
+            if len(loan_calculations_tuple) > 0:
+                loan_calculations_tuple = loan_calculations_tuple[:-1]
+                loan_calculations = list(loan_calculations_tuple)
+                print("\nPrevious loan calculations have been deleted.")
+            else:
+                main_menu()
+        elif delete == "2":
+            main_menu()
+        else:
+            print("Invalid input.")
+            main_menu()
+
+#Option 4 - Modify threshold
+def modify_threshold():
+    global debt_service_ratio_threshold
+    try:
+        new_threshold = float(input("\nEnter the new Debt Service Ratio threshold: "))
+        debt_service_ratio_threshold = new_threshold
+        print(f"Debt Service Ratio threshold is set to {debt_service_ratio_threshold}%")
+    except ValueError:
+        print("Invalid input. Please try again.")
+
 #Main Menu
 def main_menu():
     while True:
         print("\nMain Menu:")
         print("1. Calculate New Loan")
         print("2. Display Previous Loan Calculations")
-        print("3. Exit")
+        print("3. Delete Previous Loan Calculations")
+        print("4. Modify threshold")
+        print("5. Exit")
 
         option = input("Enter your option: ")
 
@@ -94,10 +129,34 @@ def main_menu():
         elif option == "2":
             previous_loan_calculations_display()
         elif option == "3":
-            print("Exiting the program...")
+            previous_loan_calculations_delete()
+        elif option == "4":
+            modify_threshold()
+        elif option == "5":
+            print("Thank you!Exiting the program...")
             sys.exit()
         else:
-            print("Invalid option. Please enter 1, 2, or 3.")
+            print("Invalid option. Please enter 1, 2, 3, 4 or 5.")
 
-if __name__ == "__main__":
+#Open Menu
+print("Welcome to the Housing Loan Eligibility and DSR Calculator! \nIf you are wondering about your eligibility to the loan, feel free to give a try on our DSR calculator!")
+welcome = (input("Enter 1 to open the main menu, 2 to exit the calculator: "))
+if welcome == "1":
     main_menu()
+
+    a = 0
+    b = 1
+    while a < b:
+        a += 1    
+elif welcome == "2":
+    print("Thank you!Exiting the program...")
+    sys.exit()
+else: 
+    print("Invalid input. Please try again.")
+        
+
+
+
+
+
+
